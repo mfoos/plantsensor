@@ -63,8 +63,7 @@ def watch(fn):
         moisture = int(moisture)
         draw.rectangle((0, 0, width, height), outline=0, fill=0)
         
-        if moisture > 800:
-        #if moisture <= 800:
+        if moisture <= 900:
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
             text = "DRY!"
@@ -76,7 +75,7 @@ def watch(fn):
             draw.text((X, Y), text, font=font, fill="#FFFFFF", align="center")
             disp.image(image, rotation)
 
-        elif moisture > 800:
+        elif moisture > 800 and moisture < 1000: 
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
             disp.image(image, rotation)
 
