@@ -27,3 +27,4 @@ while True:
 #        time.sleep(1)
 
     print(t, " temp: " + str(temp) + "  moisture: " + str(touch))
+    time.sleep(1)
