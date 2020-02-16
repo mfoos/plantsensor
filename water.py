@@ -6,6 +6,7 @@ import digitalio
 import board
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_rgb_display.st7789 as st7789
+from datetime import datetime
 
 
 # Configuration for CS and DC pins (these are FeatherWing defaults on M0/M4):
@@ -55,9 +56,22 @@ backlight = digitalio.DigitalInOut(board.D22)
 backlight.switch_to_output()
 backlight.value = True
 
+# Button B is the one farther from the pins
+buttonB = digitalio.DigitalInOut(board.D24)
+buttonA = digitalio.DigitalInOut(board.D23)
+buttonB.switch_to_input()
+buttonA.switch_to_input()
+
 def watch(fn):
     fp = open(fn, 'r')
     while True:
+        with open("buttonpresses.txt", 'a') as b:
+            if not buttonB.value:
+                n = datetime.now()
+                t = datetime.strftime(n, "%b-%d-%Y %H:%M:%S")
+                print(t, " watered", file=b)
+                time.sleep(2)
+        
         new = fp.readline()
         moisture = new.split(" ")[7]
         moisture = int(moisture)
